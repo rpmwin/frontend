@@ -1,5 +1,8 @@
 import { Inter } from "next/font/google";
 import "./globals.css";
+import { SocketProvider } from "./socketcontext";
+import { GlobalStateProvider } from "./globalcontext";
+// import { WebRTCProvider } from "./webrtcContext"; // Import the WebRTC context
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -11,7 +14,15 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        <GlobalStateProvider>
+          <SocketProvider>
+            {" "}
+            {/* Wrap with WebRTCProvider */}
+            {children}
+          </SocketProvider>
+        </GlobalStateProvider>
+      </body>
     </html>
   );
 }
